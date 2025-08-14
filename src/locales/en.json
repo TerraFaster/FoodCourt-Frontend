@@ -1,0 +1,142 @@
+{
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "signInDescription": "Sign in to access your account",
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "errors": {
+      "invalidCredentials": "Invalid username or password",
+      "serverError": "Server error, please try again later",
+      "networkError": "Network error, please check your connection",
+      "genericError": "An error occurred, please try again",
+      "fieldsRequired": "Please fill in all required fields"
+    }
+  },
+  "menu": {
+    "title": "Our Menu",
+    "subtitle": "Discover our carefully crafted dishes made with the finest ingredients",
+    "loading": "Loading menu...",
+    "loadingDescription": "Please wait while we fetch our latest offerings",
+    "errorTitle": "Unable to Load Menu",
+    "errors": {
+      "network": "Network connection error",
+      "server": "Server temporarily unavailable",
+      "load": "Failed to load menu items",
+      "refresh": "Failed to refresh menu data"
+    },
+    "actions": {
+      "tryAgain": "Try Again",
+      "retry": "Retry",
+      "autoRetrying": "Auto-retrying"
+    },
+    "empty": {
+      "title": "Menu Coming Soon",
+      "description": "We're preparing something delicious for you"
+    },
+    "lastUpdated": "Last updated"
+  },
+  "categories": {
+    "food": "Food",
+    "drinks": "Drinks",
+    "desserts": "Desserts"
+  },
+  "menuItem": {
+    "units": {
+      "grams": "g",
+      "milliliters": "ml",
+      "pieces": "pcs",
+      "minutes": "min"
+    },
+    "badges": {
+      "new": "New",
+      "recommended": "Recommended!"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Restaurant. All rights reserved.",
+    "contact": {
+      "title": "Contact Us",
+      "address": "123 Restaurant Street",
+      "phone": "+1 (555) 123-4567",
+      "email": "info@restaurant.com"
+    },
+    "hours": {
+      "title": "Opening Hours",
+      "weekdays": "Mon - Thu: 11AM - 10PM",
+      "weekend": "Fri - Sat: 11AM - 11PM",
+      "sunday": "Sunday: 12PM - 9PM"
+    },
+    "social": {
+      "title": "Follow Us",
+      "twitter": "@restaurant_official",
+      "facebook": "facebook.com/restaurant",
+      "instagram": "instagram.com/restaurant"
+    }
+  },
+  "header": {
+    "title": "Food court"
+  },
+  "admin": {
+    "menuManagement": "Menu Management",
+    "actions": {
+      "editItem": "Edit Item",
+      "delete": "Delete",
+      "addNewItem": "Add New Menu Item",
+      "refresh": "Refresh",
+      "cancel": "Cancel",
+      "updateItem": "Update Item",
+      "addItem": "Add Item"
+    },
+    "deleteConfirmation": "Are you sure you want to delete this item?",
+    "addNewItemDescription": "Click to add a new item to your menu",
+    "modal": {
+      "editTitle": "Edit Menu Item",
+      "addTitle": "Add New Menu Item"
+    },
+    "form": {
+      "fields": {
+        "nameEn": "Name (English)",
+        "nameUk": "Name (Ukrainian)",
+        "descriptionEn": "Description (English)",
+        "descriptionUk": "Description (Ukrainian)",
+        "category": "Category",
+        "amount": "Amount",
+        "unit": "Unit",
+        "price": "Price (₴)",
+        "promoPrice": "Promo Price (₴)",
+        "cookTime": "Cook Time (min)",
+        "imageUrl": "Image URL"
+      },
+      "placeholders": {
+        "nameEn": "Enter item name in English",
+        "nameUk": "Enter item name in Ukrainian",
+        "descriptionEn": "Enter detailed description in English",
+        "descriptionUk": "Enter detailed description in Ukrainian",
+        "promoPrice": "Optional",
+        "imageUrl": "https://example.com/image.jpg"
+      },
+      "options": {
+        "markAsNew": "Mark as New",
+        "recommended": "Recommended"
+      },
+      "preview": "Preview",
+      "saving": "Saving...",
+      "imageUploadAfterSave": "Image upload available after saving the item"
+    },
+    "loading": "Loading...",
+    "empty": {
+      "title": "No menu items found",
+      "description": "Start by adding your first menu item"
+    }
+  }
+}

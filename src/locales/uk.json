@@ -1,0 +1,142 @@
+{
+  "auth": {
+    "welcomeBack": "Ласкаво просимо назад",
+    "signInDescription": "Увійдіть до свого акаунту",
+    "username": {
+      "label": "Ім'я користувача",
+      "placeholder": "Введіть ваше ім'я користувача"
+    },
+    "password": {
+      "label": "Пароль",
+      "placeholder": "Введіть ваш пароль",
+      "showPassword": "Показати пароль",
+      "hidePassword": "Приховати пароль"
+    },
+    "signIn": "Увійти",
+    "signingIn": "Вхід...",
+    "errors": {
+      "invalidCredentials": "Невірне ім'я користувача або пароль",
+      "serverError": "Помилка сервера, спробуйте пізніше",
+      "networkError": "Помилка мережі, перевірте ваше з'єднання",
+      "genericError": "Сталася помилка, спробуйте ще раз",
+      "fieldsRequired": "Будь ласка, заповніть всі обов'язкові поля"
+    }
+  },
+  "menu": {
+    "title": "Наше меню",
+    "subtitle": "Відкрийте для себе наші ретельно приготовані страви з найкращих інгредієнтів",
+    "loading": "Завантажуємо меню...",
+    "loadingDescription": "Зачекайте, поки ми завантажимо наші останні пропозиції",
+    "errorTitle": "Не вдалося завантажити меню",
+    "errors": {
+      "network": "Помилка мережевого з'єднання",
+      "server": "Сервер тимчасово недоступний",
+      "load": "Не вдалося завантажити елементи меню",
+      "refresh": "Не вдалося оновити дані меню"
+    },
+    "actions": {
+      "tryAgain": "Спробувати ще раз",
+      "retry": "Повторити",
+      "autoRetrying": "Автоматичне повторення"
+    },
+    "empty": {
+      "title": "Меню незабаром",
+      "description": "Ми готуємо для вас щось смачне"
+    },
+    "lastUpdated": "Останнє оновлення"
+  },
+  "categories": {
+    "food": "Їжа",
+    "drinks": "Напої",
+    "desserts": "Десерти"
+  },
+  "menuItem": {
+    "units": {
+      "grams": "г",
+      "milliliters": "мл",
+      "pieces": "шт",
+      "minutes": "хв"
+    },
+    "badges": {
+      "new": "Новинка",
+      "recommended": "Рекомендуємо!"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Ресторан. Всі права захищені.",
+    "contact": {
+      "title": "Зв'яжіться з нами",
+      "address": "вул. Ресторанна, 123",
+      "phone": "+38 (044) 123-4567",
+      "email": "info@restaurant.com"
+    },
+    "hours": {
+      "title": "Години роботи",
+      "weekdays": "Пн - Чт: 11:00 - 22:00",
+      "weekend": "Пт - Сб: 11:00 - 23:00",
+      "sunday": "Неділя: 12:00 - 21:00"
+    },
+    "social": {
+      "title": "Слідкуйте за нами",
+      "twitter": "@restaurant_official",
+      "facebook": "facebook.com/restaurant",
+      "instagram": "instagram.com/restaurant"
+    }
+  },
+  "header": {
+    "title": "Фуд-корт"
+  },
+  "admin": {
+    "menuManagement": "Управління меню",
+    "actions": {
+      "editItem": "Редагувати",
+      "delete": "Видалити",
+      "addNewItem": "Додати новий елемент меню",
+      "refresh": "Оновити",
+      "cancel": "Скасувати",
+      "updateItem": "Оновити елемент",
+      "addItem": "Додати елемент"
+    },
+    "deleteConfirmation": "Ви впевнені, що хочете видалити цей елемент?",
+    "addNewItemDescription": "Натисніть, щоб додати новий елемент до вашого меню",
+    "modal": {
+      "editTitle": "Редагувати елемент меню",
+      "addTitle": "Додати новий елемент меню"
+    },
+    "form": {
+      "fields": {
+        "nameEn": "Назва (англійською)",
+        "nameUk": "Назва (українською)",
+        "descriptionEn": "Опис (англійською)",
+        "descriptionUk": "Опис (українською)",
+        "category": "Категорія",
+        "amount": "Кількість",
+        "unit": "Одиниця",
+        "price": "Ціна (₴)",
+        "promoPrice": "Акційна ціна (₴)",
+        "cookTime": "Час приготування (хв)",
+        "imageUrl": "URL зображення"
+      },
+      "placeholders": {
+        "nameEn": "Введіть назву елемента англійською",
+        "nameUk": "Введіть назву елемента українською",
+        "descriptionEn": "Введіть детальний опис англійською",
+        "descriptionUk": "Введіть детальний опис українською",
+        "promoPrice": "Необов'язково",
+        "imageUrl": "https://example.com/image.jpg"
+      },
+      "options": {
+        "markAsNew": "Позначити як новинку",
+        "recommended": "Рекомендований"
+      },
+      "preview": "Попередній перегляд",
+      "saving": "Збереження...",
+      "imageUploadAfterSave": "Завантаження зображення доступне після збереження елемента"
+    },
+    "loading": "Завантаження...",
+    "empty": {
+      "title": "Елементи меню не знайдені",
+      "description": "Почніть з додавання першого елемента меню"
+    }
+  }
+}
