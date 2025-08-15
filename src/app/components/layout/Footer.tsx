@@ -18,7 +18,7 @@ export function Footer({ InnerComponent }: { InnerComponent?: React.ComponentTyp
     : { color: '#888888' };
 
   return (
-    <footer className="mt-12 sm:mt-20" style={{ backgroundColor: '#1a1a1a', borderTop: '1px solid #333333' }}>
+    <footer style={{ backgroundColor: '#1a1a1a', borderTop: '1px solid #333333' }}>
       <div className={mainContainerClasses}>
         {InnerComponent && <InnerComponent />}
         

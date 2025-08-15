@@ -63,7 +63,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 Ресторан. Всі права захищені.",
+    "copyright": "© 2025 BeerHop. Всі права захищені.",
     "contact": {
       "title": "Зв'яжіться з нами",
       "address": "вул. Ресторанна, 123",
@@ -126,8 +126,10 @@
         "imageUrl": "https://example.com/image.jpg"
       },
       "options": {
+        "title": "Опції",
         "markAsNew": "Позначити як новинку",
-        "recommended": "Рекомендований"
+        "recommended": "Рекомендований",
+        "outOfStock": "Немає в наявності"
       },
       "preview": "Попередній перегляд",
       "saving": "Збереження...",

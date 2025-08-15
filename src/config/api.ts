@@ -4,18 +4,10 @@ export interface ApiConfig {
 }
 
 const getApiConfig = (): ApiConfig => {
-  // Check for environment variable first (for production builds)
-  if (typeof window === 'undefined') {
-    // Server-side
-    return {
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://localhost:7270'
-    };
-  } else {
-    // Client-side
-    return {
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://localhost:7270'
-    };
-  }
+  if (process.env.NEXT_PUBLIC_API_BASE_URL)
+    return { baseURL: process.env.NEXT_PUBLIC_API_BASE_URL };
+  
+  return { baseURL: 'http://localhost:3000' };
 };
 
 export const apiConfig = getApiConfig();

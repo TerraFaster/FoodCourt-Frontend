@@ -23,7 +23,8 @@
 }
 
 body {
-  background: var(--background);
+  background-image: url('/bg.png');
+  background-size: contain;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }

@@ -1,4 +1,3 @@
-// lib/apiClient.ts
 import { apiConfig, endpoints } from '../config/api';
 
 export interface LoginRequest {
@@ -51,8 +50,7 @@ export interface FlagsUpdateRequest {
 }
 
 export interface ImageUploadResponse {
-  imageUrl: string;
-  // url: string;
+  url: string;
 }
 
 export interface MenuItemPublicResponse {
@@ -187,7 +185,7 @@ class ApiClient {
     if (typeof document === 'undefined') return null;
     
     const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
+    for (const cookie of cookies) {
       const [name, value] = cookie.trim().split('=');
       if (name === 'auth-token') {
         return value;

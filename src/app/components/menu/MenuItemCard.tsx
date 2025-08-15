@@ -100,12 +100,12 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
     <>
       {/* Main Card */}
       <div 
-        className="relative rounded-xl overflow-hidden transition-all duration-300 min-h-50 cursor-pointer bg-dark-bg hover:bg-dark-bg-hover" 
+        className="group relative rounded-xl overflow-hidden transition-all duration-300 min-h-50 cursor-pointer bg-dark-bg hover:bg-dark-bg-hover" 
         onClick={openPopup}
       >
         <div className="flex h-full">
           {/* Left content area */}
-          <div className={`flex-1 p-4 pr-2 flex flex-col justify-between ${item.ImageUrl ? 'mr-28 md:mr-40' : ''}`}>
+          <div className={`flex-1 p-4 pr-2 flex flex-col justify-between transition-all duration-300 ${item.ImageUrl ? 'mr-28 md:mr-40 md:group-hover:mr-50' : ''}`}>
             {/* Top section with name and price */}
             <div className="mb-2">
               <div className="flex items-center space-x-2 mb-2">
@@ -155,8 +155,8 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               <div className="flex flex-wrap items-center space-x-4">
                 {item.IsNew && (
                   <div className="flex items-center space-x-1">
-                    <AlertCircle className="w-4 h-4" style={{ color: '#d0182d' }} />
-                    <span className="text-m font-medium" style={{ color: '#d0182d' }}>
+                    <AlertCircle className="w-4 h-4 text-yellow-500"/>
+                    <span className="text-m font-medium text-yellow-500">
                       {t('menuItem.badges.new')}
                     </span>
                   </div>
@@ -164,8 +164,8 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                 
                 {item.IsPromo && (
                   <div className="flex items-center space-x-1">
-                    <ThumbsUp className="w-4 h-4" style={{ color: '#d0182d' }} />
-                    <span className="text-m font-medium" style={{ color: '#d0182d' }}>
+                    <ThumbsUp className="w-4 h-4 text-yellow-500"/>
+                    <span className="text-m font-medium text-yellow-500">
                       {t('menuItem.badges.recommended')}
                     </span>
                   </div>
@@ -176,7 +176,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
           
           {/* Right image area */}
           {item.ImageUrl && (
-            <div className="absolute top-0 right-0 w-28 md:w-40 h-full rounded-r-2xl overflow-hidden">
+            <div className="absolute top-0 right-0 w-28 md:w-40 md:group-hover:w-50 transition-all duration-300 h-full rounded-r-2xl overflow-hidden">
               <img
                 src={item.ImageUrl}
                 alt={displayName}
@@ -229,8 +229,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               <div className="mb-2">
                 <div className="flex items-center space-x-2 mb-2">
                   <h3 className="text-2xl font-bold text-white leading-tight font-menu-item">{displayName}</h3>
-                  <span className="text-xl invisible sm:visible" style={{ color: '#888888' }}>•</span>
-                  <span className="text-xl px-4 py-1 rounded-full mb-auto" style={{ 
+                  <span className="text-xl px-4 py-1 rounded-full mb-auto ml-auto" style={{ 
                     backgroundColor: '#333333', 
                     color: '#cccccc' 
                   }}>
@@ -276,8 +275,8 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               <div className="flex flex-wrap items-center gap-3">
                 {item.IsNew && (
                   <div className="flex items-center space-x-1">
-                    <AlertCircle className="w-4 h-4" style={{ color: '#d0182d' }} />
-                    <span className="text-sm font-medium" style={{ color: '#d0182d' }}>
+                    <AlertCircle className="w-4 h-4 text-yellow-500"/>
+                    <span className="text-sm font-medium text-yellow-500">
                       {t('menuItem.badges.new')}
                     </span>
                   </div>
@@ -285,8 +284,8 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                 
                 {item.IsPromo && (
                   <div className="flex items-center space-x-1">
-                    <ThumbsUp className="w-4 h-4" style={{ color: '#d0182d' }} />
-                    <span className="text-sm font-medium" style={{ color: '#d0182d' }}>
+                    <ThumbsUp className="w-4 h-4 text-yellow-500"/>
+                    <span className="text-sm font-medium text-yellow-500">
                       {t('menuItem.badges.recommended')}
                     </span>
                   </div>

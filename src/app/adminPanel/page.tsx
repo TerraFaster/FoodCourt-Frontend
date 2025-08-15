@@ -228,9 +228,9 @@ export default function AdminMenuPanel() {
       const response = await apiClient.uploadMenuItemImage(editingItem.Id, file);
       
       // Add API base URL to the response URL if it's a relative path
-      const fullImageUrl = response.imageUrl.startsWith('http') 
-        ? response.imageUrl 
-        : `${apiConfig.baseURL}${response.imageUrl.startsWith('/') ? response.imageUrl : `/${response.imageUrl}`}`;
+      const fullImageUrl = response.url.startsWith('http') 
+        ? response.url 
+        : `${apiConfig.baseURL}${response.url.startsWith('/') ? response.url : `/${response.url}`}`;
       
       // Update form data with new image URL
       handleInputChange('ImageUrl', fullImageUrl);
@@ -273,7 +273,7 @@ export default function AdminMenuPanel() {
   }
 
   return (
-    <div className="min-h-screen text-white" style={{ backgroundColor: '#111111' }}>
+    <div className="min-h-screen text-white flex flex-col" style={{ backgroundColor: '#111111' }}>
       <Header></Header>
 
       {/* Error Message */}
@@ -294,7 +294,7 @@ export default function AdminMenuPanel() {
       )}
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 sm:w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-white">{t('admin.menuManagement')}</h1>
           <button
@@ -617,7 +617,7 @@ export default function AdminMenuPanel() {
               {/* Toggles Section */}
               <div>
                 <label className="block text-sm font-medium mb-4" style={{ color: '#cccccc' }}>
-                  Options
+                  {t('admin.form.options.title')}
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 rounded-lg" style={{ backgroundColor: '#111111' }}>
                   <CustomToggle

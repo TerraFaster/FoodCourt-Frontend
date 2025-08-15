@@ -63,7 +63,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 Restaurant. All rights reserved.",
+    "copyright": "© 2025 BeerHop. All rights reserved.",
     "contact": {
       "title": "Contact Us",
       "address": "123 Restaurant Street",
@@ -126,8 +126,10 @@
         "imageUrl": "https://example.com/image.jpg"
       },
       "options": {
+        "title": "Options",
         "markAsNew": "Mark as New",
-        "recommended": "Recommended"
+        "recommended": "Recommended",
+        "outOfStock": "Out of stock"
       },
       "preview": "Preview",
       "saving": "Saving...",

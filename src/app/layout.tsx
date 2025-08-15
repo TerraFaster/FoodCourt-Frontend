@@ -52,7 +52,7 @@ export default async function RootLayout({
 
   return (
     <html lang="uk">
-      <body className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+      <body className="text-white">
         <NextIntlClientProvider messages={messages}>
           <div className="min-h-screen">
             <main>{children}</main>
