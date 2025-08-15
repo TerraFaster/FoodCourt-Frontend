@@ -9,6 +9,11 @@ export interface LoginResponse {
   token: string;
 }
 
+export interface CheckAuthResponse {
+  isAuthenticated: boolean;
+  message: string;
+}
+
 export interface MenuItemResponse {
   id: number;
   nameEn: string;
@@ -202,6 +207,12 @@ class ApiClient {
     });
   }
 
+  async checkAuth(): Promise<CheckAuthResponse> {
+    return this.request<CheckAuthResponse>(endpoints.auth.checkAuth, {
+      method: 'GET',
+    });
+  }
+
   // Menu Items methods
   async getAllMenuItems(): Promise<MenuItemResponse[]> {
     return this.request<MenuItemResponse[]>(endpoints.menuItems.getAll);
@@ -256,10 +267,6 @@ class ApiClient {
     
     return this.requestWithFile<ImageUploadResponse>(endpoints.menuItems.uploadImage(id), file);
   }
-
-  // async uploadMenuItemImage(id: number, file: File): Promise<ImageUploadResponse> {
-  //   return this.requestWithFile<ImageUploadResponse>(endpoints.menuItems.uploadImage(id), file);
-  // }
 
   // Public methods (no authentication required)
   async getPublicMenuItems(language?: string): Promise<MenuItemPublicResponse[]> {

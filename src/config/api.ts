@@ -1,4 +1,3 @@
-// config/api.ts
 export interface ApiConfig {
   baseURL: string;
 }
@@ -15,7 +14,8 @@ export const apiConfig = getApiConfig();
 // API endpoints
 export const endpoints = {
   auth: {
-    login: '/api/admin/Auth/login'
+    login: '/api/admin/Auth/login',
+    checkAuth: '/api/admin/Auth/checkAuth'
   },
   menuItems: {
     getAll: '/api/admin/MenuItems',
