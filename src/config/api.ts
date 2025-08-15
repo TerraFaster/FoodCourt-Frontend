@@ -24,7 +24,7 @@ export const endpoints = {
     update: (id: number) => `/api/admin/MenuItems/${id}`,
     delete: (id: number) => `/api/admin/MenuItems/${id}`,
     updateFlags: (id: number) => `/api/admin/MenuItems/${id}/flags`,
-    uploadImage: (id: number) => `/api/admin/MenuItems/${id}/image`
+    uploadImage: '/api/admin/MenuItems/image'
   },
   public: {
     menuItems: '/api/MenuItems'

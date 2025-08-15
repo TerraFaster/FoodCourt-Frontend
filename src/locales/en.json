@@ -60,19 +60,20 @@
     "badges": {
       "new": "New",
       "recommended": "Recommended!"
-    }
+    },
+    "outOfStock": "Out of Stock"
   },
   "footer": {
     "copyright": "© 2025 BeerHop. All rights reserved.",
     "contact": {
       "title": "Contact Us",
-      "address": "123 Restaurant Street",
+      "address": "45zh Vyshhorodska St. (вул. Вишгородська, 45ж)",
       "phone": "+1 (555) 123-4567",
       "email": "info@restaurant.com"
     },
     "hours": {
       "title": "Opening Hours",
-      "weekdays": "Mon - Thu: 11AM - 10PM",
+      "weekdays": "Mon – Sun: 11:00 AM – 11:00 PM",
       "weekend": "Fri - Sat: 11AM - 11PM",
       "sunday": "Sunday: 12PM - 9PM"
     },
@@ -115,7 +116,7 @@
         "price": "Price (₴)",
         "promoPrice": "Promo Price (₴)",
         "cookTime": "Cook Time (min)",
-        "imageUrl": "Image URL"
+        "imageUrl": "Image"
       },
       "placeholders": {
         "nameEn": "Enter item name in English",
@@ -133,7 +134,11 @@
       },
       "preview": "Preview",
       "saving": "Saving...",
-      "imageUploadAfterSave": "Image upload available after saving the item"
+      "imageUpload": {
+        "dragAndDrop": "Click to select or drag & drop an image file or URL here",
+        "supportedFormats": "Supports: JPG, PNG, GIF, WebP, SVG",
+        "clickToChange": "Click to change image"
+      }
     },
     "loading": "Loading...",
     "empty": {

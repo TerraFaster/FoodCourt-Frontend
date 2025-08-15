@@ -60,31 +60,32 @@
     "badges": {
       "new": "Новинка",
       "recommended": "Рекомендуємо!"
-    }
+    },
+    "outOfStock": "Закінчилось"
   },
   "footer": {
     "copyright": "© 2025 BeerHop. Всі права захищені.",
     "contact": {
       "title": "Зв'яжіться з нами",
-      "address": "вул. Ресторанна, 123",
+      "address": "вул. Вишгородська, 45ж",
       "phone": "+38 (044) 123-4567",
-      "email": "info@restaurant.com"
+      "email": "beerhopua@gmail.com"
     },
     "hours": {
       "title": "Години роботи",
-      "weekdays": "Пн - Чт: 11:00 - 22:00",
+      "weekdays": "Пн - Нд: 11:00 - 23:00",
       "weekend": "Пт - Сб: 11:00 - 23:00",
       "sunday": "Неділя: 12:00 - 21:00"
     },
     "social": {
       "title": "Слідкуйте за нами",
-      "twitter": "@restaurant_official",
-      "facebook": "facebook.com/restaurant",
-      "instagram": "instagram.com/restaurant"
+      "twitter": "@beerhop_official",
+      "facebook": "facebook.com/beerhop",
+      "instagram": "instagram.com/beerhop.ua/"
     }
   },
   "header": {
-    "title": "Фуд-корт"
+    "title": "Food court"
   },
   "admin": {
     "menuManagement": "Управління меню",
@@ -115,7 +116,7 @@
         "price": "Ціна (₴)",
         "promoPrice": "Акційна ціна (₴)",
         "cookTime": "Час приготування (хв)",
-        "imageUrl": "URL зображення"
+        "imageUrl": "Зображення"
       },
       "placeholders": {
         "nameEn": "Введіть назву елемента англійською",
@@ -133,7 +134,11 @@
       },
       "preview": "Попередній перегляд",
       "saving": "Збереження...",
-      "imageUploadAfterSave": "Завантаження зображення доступне після збереження елемента"
+      "imageUpload": {
+        "dragAndDrop": "Натисніть, щоб вибрати або перетягніть файл зображення чи URL сюди",
+        "supportedFormats": "Підтримується: JPG, PNG, GIF, WebP, SVG",
+        "clickToChange": "Натисніть, щоб змінити зображення"
+      }
     },
     "loading": "Завантаження...",
     "empty": {

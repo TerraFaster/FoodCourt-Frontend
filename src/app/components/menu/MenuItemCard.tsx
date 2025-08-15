@@ -3,6 +3,7 @@
 import { Clock, Weight, ThumbsUp, AlertCircle, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useSettingsStore } from '../../store/settingsStore';
 
 interface MenuItem {
@@ -18,6 +19,7 @@ interface MenuItem {
   PromoPrice?: number | null;
   IsNew: boolean;
   IsPromo: boolean;
+  IsOutOfStock: boolean;
   ImageUrl?: string;
   Category: string;
 }
@@ -27,6 +29,12 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
   const { getCurrentLocale, isHydrated } = useSettingsStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure component is mounted before rendering portal
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Get current locale and determine which language fields to use
   const currentLocale = getCurrentLocale();
@@ -110,23 +118,21 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
             <div className="mb-2">
               <div className="flex items-center space-x-2 mb-2">
                 <h3 className="text-lg font-bold text-white leading-tight font-menu-item">{displayName}</h3>
-                <span className="text-sm invisible sm:visible" style={{ color: '#888888' }}>•</span>
-                <span className="text-xs px-2 py-1 rounded-full mb-auto ml-auto sm:m-0" style={{ 
-                  backgroundColor: '#333333', 
-                  color: '#cccccc' 
-                }}>
-                  {t(`categories.${item.Category}`)}
-                </span>
               </div>
               
               <div className="flex items-center space-x-2">
                 {item.PromoPrice ? (
                   <>
-                    <span className="text-l font-bold line-through" style={{ color: '#888888' }}>{item.Price} ₴</span>
-                    <span className="text-xl font-bold text-yellow-400">{item.PromoPrice} ₴</span>
+                    <span className="text-l font-bold line-through text-[#888888] font-menu-item">{item.Price} ₴</span>
+                    <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.PromoPrice} ₴</span>
                   </>
                 ) : (
-                  <span className="text-xl font-bold text-yellow-400">{item.Price} ₴</span>
+                  <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.Price} ₴</span>
+                )}
+                {item.IsOutOfStock ? (
+                  <span className="text-lg text-red-500 font-menu-item">{t("menuItem.outOfStock")}</span>
+                ) : (
+                  <></>
                 )}
               </div>
             </div>
@@ -176,7 +182,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
           
           {/* Right image area */}
           {item.ImageUrl && (
-            <div className="absolute top-0 right-0 w-28 md:w-40 md:group-hover:w-50 transition-all duration-300 h-full rounded-r-2xl overflow-hidden">
+            <div className={`absolute top-0 right-0 ${item.IsOutOfStock ? 'grayscale' : ''} w-28 md:w-40 md:group-hover:w-50 transition-all duration-300 h-full rounded-r-2xl overflow-hidden`}>
               <img
                 src={item.ImageUrl}
                 alt={displayName}
@@ -187,10 +193,10 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
         </div>
       </div>
 
-      {/* Popup Modal */}
-      {isPopupOpen && (
+      {/* Popup Modal - Rendered using Portal */}
+      {isPopupOpen && mounted && createPortal(
         <div 
-          className={`fixed inset-0 backdrop-blur-xl bg-black/50 flex items-center justify-center z-50 p-4 transition-opacity duration-300 ${
+          className={`fixed inset-0 backdrop-blur-xl bg-black/50 flex items-center justify-center z-[60] p-4 transition-opacity duration-300 ${
             isAnimating ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={closePopup}
@@ -214,7 +220,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
 
             {/* Image at the top */}
             {item.ImageUrl && (
-              <div className="w-full h-80 overflow-hidden">
+              <div className={`w-full h-80 overflow-hidden ${item.IsOutOfStock ? 'grayscale' : ''}`}>
                 <img
                   src={item.ImageUrl}
                   alt={displayName}
@@ -229,22 +235,21 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               <div className="mb-2">
                 <div className="flex items-center space-x-2 mb-2">
                   <h3 className="text-2xl font-bold text-white leading-tight font-menu-item">{displayName}</h3>
-                  <span className="text-xl px-4 py-1 rounded-full mb-auto ml-auto" style={{ 
-                    backgroundColor: '#333333', 
-                    color: '#cccccc' 
-                  }}>
-                    {t(`categories.${item.Category}`)}
-                  </span>
                 </div>
                 
                 <div className="flex items-center space-x-2">
                   {item.PromoPrice ? (
                     <>
-                      <span className="text-lg font-bold line-through" style={{ color: '#888888' }}>{item.Price} ₴</span>
-                      <span className="text-2xl font-bold text-yellow-400">{item.PromoPrice} ₴</span>
+                      <span className="text-l font-bold line-through text-[#888888] font-menu-item">{item.Price} ₴</span>
+                      <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.PromoPrice} ₴</span>
                     </>
                   ) : (
-                    <span className="text-2xl font-bold text-yellow-400">{item.Price} ₴</span>
+                    <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.Price} ₴</span>
+                  )}
+                  {item.IsOutOfStock ? (
+                    <span className="text-lg text-red-500 font-menu-item">{t("menuItem.outOfStock")}</span>
+                  ) : (
+                    <></>
                   )}
                 </div>
               </div>
@@ -293,7 +298,8 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

@@ -46,7 +46,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     <div className={`relative ${className}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-3 py-2 border rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-all duration-300"
+        className="flex items-center justify-between cursor-pointer w-full px-3 py-2 border rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-all duration-300"
         style={{ backgroundColor: '#111111', borderColor: '#333333' }}
         onMouseEnter={(e) => {
           (e.target as HTMLButtonElement).style.borderColor = '#444444';
@@ -71,7 +71,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             <button
               key={option.value}
               onClick={() => handleOptionSelect(option.value)}
-              className={`flex items-center gap-3 w-full text-left px-4 py-3 text-sm transition-all duration-300 relative ${
+              className={`flex items-center cursor-pointer gap-3 w-full text-left px-4 py-3 text-sm transition-all duration-300 relative ${
                 isHydrated && value === option.value 
                   ? 'text-yellow-400 bg-yellow-400/10 border-l-4 border-yellow-400' 
                   : 'text-white hover:bg-white/10'

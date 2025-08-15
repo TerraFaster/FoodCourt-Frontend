@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
+import localFont from 'next/font/local';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -42,6 +43,18 @@ export const metadata: Metadata = {
     },
   }
 };
+
+const IgraSans = localFont({
+  src: [
+    {
+      path: '../fonts/IgraSans.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-igrasans',
+  display: 'swap',
+});
 
 export default async function RootLayout({
   children,

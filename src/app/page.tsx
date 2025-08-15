@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Header } from './components/layout/Header';
 import { MenuItemCard } from './components/menu/MenuItemCard';
 import { Footer } from './components/layout/Footer';
-import { MenuFooter } from './components/menu/MenuFooter';
+import { MenuFooter } from './components/layout/MenuFooter';
 import { apiClient } from '../lib/apiClient';
 
 // Transform API response to match existing component structure
@@ -22,6 +22,7 @@ interface TransformedMenuItem {
   PromoPrice: number | null;
   IsNew: boolean;
   IsPromo: boolean;
+  IsOutOfStock: boolean;
   ImageUrl?: string;
   Category: string;
 }
@@ -57,6 +58,7 @@ export default function RestaurantSite() {
         PromoPrice: item.promoPrice ?? null,
         IsNew: item.isNew,
         IsPromo: item.isPromo,
+        IsOutOfStock: item.isOutOfStock,
         ImageUrl: item.imageUrl,
         Category: item.category
       }));
@@ -81,8 +83,8 @@ export default function RestaurantSite() {
 
         <main className="flex-1 sm:w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 sm:pb-20 sm:rounded-3xl" style={{ backgroundColor: '#111111' }}>
           <div className="mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4 font-menu-item">{t('menu.title')}</h2>
-            <p className="text-sm sm:text-lg font-menu-item" style={{ color: '#888888' }}>{t('menu.subtitle')}</p>
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4 font-[IgraSans]">{t('menu.title')}</h2>
+            <p className="text-sm sm:text-lg font-[IgraSans]" style={{ color: '#888888' }}>{t('menu.subtitle')}</p>
           </div>
           
           <div className="rounded-3xl p-3 sm:p-4" style={{ backgroundColor: '#1a1a1a' }}>
@@ -108,8 +110,8 @@ export default function RestaurantSite() {
 
         <main className="flex-1 sm:w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 sm:pb-20 sm:rounded-3xl" style={{ backgroundColor: '#111111' }}>
           <div className="mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4 font-menu-item">{t('menu.title')}</h2>
-            <p className="text-sm sm:text-lg font-menu-item" style={{ color: '#888888' }}>{t('menu.subtitle')}</p>
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4 font-[IgraSans]">{t('menu.title')}</h2>
+            <p className="text-sm sm:text-lg font-[IgraSans]" style={{ color: '#888888' }}>{t('menu.subtitle')}</p>
           </div>
           
           <div className="rounded-3xl p-3 sm:p-4" style={{ backgroundColor: '#1a1a1a' }}>
@@ -140,8 +142,8 @@ export default function RestaurantSite() {
       {/* Main Content */}
       <main className="flex-1 sm:w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 sm:pb-20 sm:rounded-3xl" style={{ backgroundColor: '#111111' }}>
         <div className="mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4 font-menu-item">{t('menu.title')}</h2>
-          <p className="text-sm sm:text-lg font-menu-item" style={{ color: '#888888' }}>{t('menu.subtitle')}</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-4 font-[IgraSans]">{t('menu.title')}</h2>
+          <p className="text-sm sm:text-lg font-[IgraSans]" style={{ color: '#888888' }}>{t('menu.subtitle')}</p>
         </div>
 
         {/* Menu Items List */}

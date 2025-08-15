@@ -99,10 +99,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 backdrop-blur-sm" style={{ backgroundColor: '#1a1a1a', borderBottom: '1px solid #333333' }}>
       <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16">
-          {/* Logo and Site Name */}
-          <Link href="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 overflow-hidden flex items-center justify-center">
+        <div className="flex items-center h-14 sm:h-16 relative">
+          {/* Title */}
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <h1 className="text-xl sm:text-2xl font-bold text-white font-[IgraSans]">{t('header.title')}</h1>
+          </Link>
+          
+          {/* Logo */}
+          <Link href="/" className="absolute left-1/2 transform -translate-x-1/2 hover:opacity-80 transition-opacity">
+            <div className="w-8 h-8 sm:w-13 sm:h-13 overflow-hidden flex items-center justify-center">
               <Image
                 src="/Logo.png"
                 alt="Logo"
@@ -112,11 +117,12 @@ export function Header() {
                 priority
               />
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white">{t('header.title')}</h1>
           </Link>
           
-          {/* Language Dropdown */}
-          <LanguageDropdown />
+          {/* Language Dropdown on the right */}
+          <div className="ml-auto">
+            <LanguageDropdown />
+          </div>
         </div>
       </div>
     </header>

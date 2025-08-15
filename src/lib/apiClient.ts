@@ -27,6 +27,7 @@ export interface MenuItemResponse {
   promoPrice?: number | null;
   isNew: boolean;
   isPromo: boolean;
+  isOutOfStock: boolean;
   imageUrl?: string;
   category: string;
 }
@@ -44,6 +45,7 @@ export interface MenuItemRequest {
   promoPrice?: number | null;
   isNew: boolean;
   isPromo: boolean;
+  isOutOfStock: boolean;
   imageUrl?: string;
   category: string;
 }
@@ -51,6 +53,7 @@ export interface MenuItemRequest {
 export interface FlagsUpdateRequest {
   isNew?: boolean;
   isPromo?: boolean;
+  isOutOfStock?: boolean;
   promoPrice?: number | null;
 }
 
@@ -68,6 +71,7 @@ export interface MenuItemPublicResponse {
   promoPrice?: number | null;
   isNew: boolean;
   isPromo: boolean;
+  isOutOfStock: boolean;
   imageUrl?: string;
   category: string;
 }
@@ -115,7 +119,7 @@ class ApiClient {
 
       if (!response.ok) {
         // Extract error message from response body or use default
-        const errorMessage = responseData.message || `HTTP error! status: ${response.status}`;
+        const errorMessage = responseData.message || responseData.detail || `HTTP error! status: ${response.status}`;
         throw {
           message: errorMessage,
           status: response.status,
@@ -168,7 +172,7 @@ class ApiClient {
       }
 
       if (!response.ok) {
-        const errorMessage = responseData.message || `HTTP error! status: ${response.status}`;
+        const errorMessage = responseData.message || responseData.detail || `HTTP error! status: ${response.status}`;
         throw {
           message: errorMessage,
           status: response.status,
@@ -249,7 +253,7 @@ class ApiClient {
     });
   }
 
-  async uploadMenuItemImage(id: number, file: File): Promise<ImageUploadResponse> {
+  async uploadMenuItemImage(file: File): Promise<ImageUploadResponse> {
     // Validate file before sending
     const maxSize = 10 * 1024 * 1024; // 10MB
     if (file.size > maxSize) {
@@ -257,7 +261,7 @@ class ApiClient {
         message: 'File size exceeds 10MB limit',
       } as ApiError;
     }
-    
+
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
       throw {
@@ -265,7 +269,7 @@ class ApiClient {
       } as ApiError;
     }
     
-    return this.requestWithFile<ImageUploadResponse>(endpoints.menuItems.uploadImage(id), file);
+    return this.requestWithFile<ImageUploadResponse>(endpoints.menuItems.uploadImage, file);
   }
 
   // Public methods (no authentication required)
