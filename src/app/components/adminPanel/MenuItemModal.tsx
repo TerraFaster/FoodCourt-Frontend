@@ -130,7 +130,6 @@ export const MenuItemModal: React.FC<MenuItemModalProps> = ({
       className={`fixed inset-0 backdrop-blur-xl bg-black/50 flex items-center justify-center z-40 p-4 transition-opacity duration-300 ${
         isAnimating ? 'opacity-100' : 'opacity-0'
       }`}
-      onClick={handleClose}
     >
       <div 
         className={`rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-out ${

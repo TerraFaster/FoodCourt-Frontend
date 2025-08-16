@@ -14,7 +14,7 @@ export function CustomToggle({
   return (
     <label className={`flex items-center space-x-3 ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
       <div 
-        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ease-in-out ${
+        className={`relative inline-flex h-6 w-11 min-w-11 items-center rounded-full transition-colors duration-200 ease-in-out ${
           checked 
             ? 'bg-yellow-400 shadow-lg shadow-yellow-400/25' 
             : 'bg-gray-600'

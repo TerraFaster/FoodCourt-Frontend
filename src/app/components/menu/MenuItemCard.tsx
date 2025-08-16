@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useSettingsStore } from '../../store/settingsStore';
+import { getCurrentLocale } from '@/lib/locale/client';
 
 interface MenuItem {
   Id: number;
@@ -26,7 +27,7 @@ interface MenuItem {
 
 export function MenuItemCard({ item }: { item: MenuItem }) {
   const t = useTranslations();
-  const { getCurrentLocale, isHydrated } = useSettingsStore();
+  const { isHydrated } = useSettingsStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [mounted, setMounted] = useState(false);

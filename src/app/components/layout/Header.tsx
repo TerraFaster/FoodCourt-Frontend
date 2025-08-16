@@ -5,30 +5,25 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from 'next-intl';
-import { useSettingsStore } from '../../store/settingsStore';
+import { useLocale } from '@/hooks/useLocale';
+import { LOCALES, LOCALE_LABELS, type Locale } from '@/lib/locale';
 
 const LanguageDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
-  const { language, setLanguage } = useSettingsStore();
-
-  // Wait for hydration to complete
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  const { locale, setLocale, isHydrated } = useLocale();
 
   const languages = [
-    { code: 'English', label: 'English', flag: '🇺🇸', shortCode: 'en' },
-    { code: 'Ukrainian', label: 'Українська', flag: '🇺🇦', shortCode: 'uk' }
-  ] as const;
+    { code: 'en' as const, label: 'English', flag: '🇺🇸' },
+    { code: 'uk' as const, label: 'Українська', flag: '🇺🇦' }
+  ];
 
-  const handleLanguageChange = (lang: 'English' | 'Ukrainian') => {
-    setLanguage(lang);
+  const handleLanguageChange = (newLocale: Locale) => {
+    setLocale(newLocale);
     setIsOpen(false);
   };
 
-  const currentLanguage = languages.find(lang => lang.code === language);
-  const displayCode = isHydrated ? (currentLanguage?.shortCode || 'en') : 'en';
+  const currentLanguage = languages.find(lang => lang.code === locale);
+  const displayCode = isHydrated ? (currentLanguage?.code || 'uk') : 'uk';
 
   return (
     <div className="relative">
@@ -55,7 +50,7 @@ const LanguageDropdown = () => {
             className={`flex items-center cursor-pointer gap-3 w-full text-left px-4 sm:px-5 py-3 text-xs sm:text-sm transition-all duration-200 relative transform ${
               isOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
             } ${
-              isHydrated && language === lang.code 
+              isHydrated && locale === lang.code 
                 ? 'text-yellow-400 bg-yellow-400/10 border-l-4 border-yellow-400' 
                 : 'text-white hover:bg-white/10'
             } ${index === 0 ? 'rounded-t-2xl' : ''} ${index === languages.length - 1 ? 'rounded-b-2xl' : ''}`}
@@ -63,19 +58,19 @@ const LanguageDropdown = () => {
               transitionDelay: isOpen ? `${index * 30}ms` : '0ms'
             }}
             onMouseEnter={(e) => {
-              if (!isHydrated || language !== lang.code) {
+              if (!isHydrated || locale !== lang.code) {
                 (e.target as HTMLButtonElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
               }
             }}
             onMouseLeave={(e) => {
-              if (!isHydrated || language !== lang.code) {
+              if (!isHydrated || locale !== lang.code) {
                 (e.target as HTMLButtonElement).style.backgroundColor = 'transparent';
               }
             }}
           >
             <span className="text-base">{lang.flag}</span>
             <span className="font-medium">{lang.label}</span>
-            {isHydrated && language === lang.code && (
+            {isHydrated && locale === lang.code && (
               <div className="absolute right-3 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
             )}
           </button>

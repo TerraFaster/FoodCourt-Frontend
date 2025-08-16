@@ -1,5 +1,28 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest } from 'next/server';
+import { COOKIE_NAME, LOCALES, DEFAULT_LOCALE } from '@/lib/locale/config';
+
+// Helper function to detect locale from Accept-Language header
+function detectLocaleFromRequest(request: NextRequest): string {
+  const acceptLanguage = request.headers.get('accept-language');
+  
+  if (!acceptLanguage) return DEFAULT_LOCALE;
+  
+  const languages = acceptLanguage
+    .split(',')
+    .map(lang => lang.split(';')[0].trim().toLowerCase());
+  
+  for (const lang of languages) {
+    if (lang.startsWith('uk') || lang.startsWith('ua')) {
+      return 'uk';
+    }
+    if (lang.startsWith('en')) {
+      return 'en';
+    }
+  }
+  
+  return DEFAULT_LOCALE;
+}
 
 // Helper function to clear auth cookie
 function clearAuthCookie(response: NextResponse): NextResponse {
@@ -22,7 +45,6 @@ async function validateTokenWithAPI(token: string, baseURL: string): Promise<boo
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      // Add timeout to prevent hanging
       signal: AbortSignal.timeout(5000) // 5 seconds timeout
     });
 
@@ -33,67 +55,76 @@ async function validateTokenWithAPI(token: string, baseURL: string): Promise<boo
     const data = await response.json();
     return data.isAuthenticated === true;
   } catch (error) {
-    // If API is unreachable or times out, assume token is invalid
     return false;
   }
 }
 
 export async function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+
+  // Check for locale cookie and set if missing
+  const existingLocaleCookie = request.cookies.get(COOKIE_NAME)?.value;
+  
+  if (!existingLocaleCookie || !LOCALES.includes(existingLocaleCookie as any)) {
+    const detectedLocale = detectLocaleFromRequest(request);
+    response.cookies.set(COOKIE_NAME, detectedLocale, {
+      path: '/',
+      maxAge: 31536000, // 1 year
+      sameSite: 'lax',
+      httpOnly: false // Allow client-side access
+    });
+  }
+
+  // Handle authentication logic
   const token = request.cookies.get('auth-token')?.value;
   const isAuthPage = request.nextUrl.pathname === '/auth';
   const isProtectedPage = request.nextUrl.pathname.startsWith('/adminPanel');
 
-  // Get base URL for API calls
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 
                   (request.nextUrl.origin.includes('localhost') 
                     ? 'http://localhost:3000' 
                     : request.nextUrl.origin);
 
-  // If no token exists
   if (!token) {
     if (isProtectedPage) {
       const url = new URL('/auth', request.url);
       url.searchParams.set('redirect', request.nextUrl.pathname);
       return NextResponse.redirect(url);
     }
-    return NextResponse.next();
-  }
+  } else {
+    if (isProtectedPage || isAuthPage) {
+      const isValidToken = await validateTokenWithAPI(token, baseURL);
 
-  // If token exists, validate it with the API (only for protected pages or auth page)
-  if (isProtectedPage || isAuthPage) {
-    const isValidToken = await validateTokenWithAPI(token, baseURL);
-
-    if (!isValidToken) {
-      // Token is invalid, clear it and handle redirect
-      if (isProtectedPage) {
-        const url = new URL('/auth', request.url);
-        url.searchParams.set('redirect', request.nextUrl.pathname);
-        const response = NextResponse.redirect(url);
-        return clearAuthCookie(response);
-      }
-      
-      if (isAuthPage) {
-        // Clear invalid token but stay on auth page
-        const response = NextResponse.next();
-        return clearAuthCookie(response);
-      }
-    } else {
-      // Token is valid
-      if (isAuthPage) {
-        // Redirect authenticated users away from auth page
-        const redirectTo = request.nextUrl.searchParams.get('redirect') || '/';
-        return NextResponse.redirect(new URL(redirectTo, request.url));
+      if (!isValidToken) {
+        if (isProtectedPage) {
+          const url = new URL('/auth', request.url);
+          url.searchParams.set('redirect', request.nextUrl.pathname);
+          const redirectResponse = NextResponse.redirect(url);
+          return clearAuthCookie(redirectResponse);
+        }
+        
+        if (isAuthPage) {
+          return clearAuthCookie(response);
+        }
+      } else {
+        if (isAuthPage) {
+          const redirectTo = request.nextUrl.searchParams.get('redirect') || '/';
+          const url = new URL(redirectTo, request.url);
+          return NextResponse.redirect(url);
+        }
       }
     }
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
   matcher: [
-    '/adminPanel/:path*', 
-    '/auth',
-    // Add any other protected routes here
+    // Match all pathnames except for
+    // - API routes
+    // - Next.js internals
+    // - Static files
+    '/((?!api|_next|_vercel|.*\\..*).*)',
   ]
 };

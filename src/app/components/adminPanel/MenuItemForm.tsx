@@ -33,6 +33,17 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({
            : t('menuItem.units.pieces')
   }));
 
+  // Helper function to handle number input changes
+  const handleNumberChange = (value: string, field: keyof MenuItem, isFloat = false) => {
+    if (value === '') {
+      // Allow empty string for clearing the field
+      onInputChange(field, '');
+    } else {
+      const numValue = isFloat ? parseFloat(value) : parseInt(value);
+      onInputChange(field, isNaN(numValue) ? '' : numValue);
+    }
+  };
+
   return (
     <>
       {/* Name Fields - English and Ukrainian */}
@@ -122,7 +133,7 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({
           <input
             type="number"
             value={formData.Amount}
-            onChange={(e) => onInputChange('Amount', parseInt(e.target.value) || 0)}
+            onChange={(e) => handleNumberChange(e.target.value, 'Amount')}
             disabled={isSaving}
             className="w-full px-3 py-2 border rounded-lg text-white focus:outline-none focus:border-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ backgroundColor: '#111111', borderColor: '#333333' }}
@@ -151,7 +162,7 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({
           <input
             type="number"
             value={formData.Price}
-            onChange={(e) => onInputChange('Price', parseFloat(e.target.value) || 0)}
+            onChange={(e) => handleNumberChange(e.target.value, 'Price', true)}
             disabled={isSaving}
             className="w-full px-3 py-2 border rounded-lg text-white focus:outline-none focus:border-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ backgroundColor: '#111111', borderColor: '#333333' }}
@@ -167,7 +178,14 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({
           <input
             type="number"
             value={formData.PromoPrice || ''}
-            onChange={(e) => onInputChange('PromoPrice', e.target.value ? parseFloat(e.target.value) : null)}
+            onChange={(e) => {
+              if (e.target.value === '') {
+                onInputChange('PromoPrice', null);
+              } else {
+                const numValue = parseFloat(e.target.value);
+                onInputChange('PromoPrice', isNaN(numValue) ? null : numValue);
+              }
+            }}
             disabled={isSaving}
             className="w-full px-3 py-2 border rounded-lg text-white focus:outline-none focus:border-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ backgroundColor: '#111111', borderColor: '#333333' }}
@@ -184,7 +202,7 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({
           <input
             type="number"
             value={formData.TimeToCook}
-            onChange={(e) => onInputChange('TimeToCook', parseInt(e.target.value) || 0)}
+            onChange={(e) => handleNumberChange(e.target.value, 'TimeToCook')}
             disabled={isSaving}
             className="w-full px-3 py-2 border rounded-lg text-white focus:outline-none focus:border-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ backgroundColor: '#111111', borderColor: '#333333' }}
@@ -206,7 +224,7 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({
         <label className="block text-sm font-medium mb-4" style={{ color: '#cccccc' }}>
           {t('admin.form.options.title')}
         </label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 rounded-lg" style={{ backgroundColor: '#111111' }}>
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-6 p-4 rounded-lg" style={{ backgroundColor: '#111111' }}>
           <CustomToggle
             checked={formData.IsNew}
             onChange={(checked) => onInputChange('IsNew', checked)}

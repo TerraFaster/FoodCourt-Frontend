@@ -12,7 +12,7 @@ export const AddNewItemButton: React.FC<AddNewItemButtonProps> = ({ onClick }) =
   return (
     <button
       onClick={onClick}
-      className="w-full p-6 sm:p-8 border-2 border-dashed hover:border-yellow-400 transition-colors rounded-lg group"
+      className="cursor-pointer w-full p-6 sm:p-8 border-2 border-dashed hover:border-yellow-400 transition-colors rounded-lg group"
       style={{ borderColor: '#333333' }}
     >
       <div className="flex flex-col items-center justify-center space-y-3 text-center">
