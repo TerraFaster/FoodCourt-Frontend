@@ -108,29 +108,29 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
     <>
       {/* Main Card */}
       <div 
-        className="group relative rounded-xl overflow-hidden transition-all duration-300 min-h-50 cursor-pointer bg-dark-bg hover:bg-dark-bg-hover" 
+        className="group sm:px-5 relative rounded-xl overflow-hidden transition-all duration-300 min-h-50 cursor-pointer bg-dark-bg hover:bg-dark-bg-hover" 
         onClick={openPopup}
       >
-        <div className="flex h-full">
+        <div className="flex sm:gap-2">
           {/* Left content area */}
-          <div className={`flex-1 p-1 flex flex-col justify-between ${item.ImageUrl ? 'mr-40 md:mr-48' : ''}`}>
+          <div className="flex-1 p-1 flex flex-col justify-between">
             {/* Top section with name and price */}
             <div className="mb-2">
               <div className="flex items-center space-x-2 mb-2">
-                <h3 className="text-lg font-bold text-white leading-tight font-menu-item">{displayName}</h3>
+                <h3 className="text-lg font-bold text-white leading-tight font-[IgraSans]">{displayName}</h3>
               </div>
               
               <div className="flex items-center space-x-2">
                 {item.PromoPrice ? (
                   <>
-                    <span className="text-l font-bold line-through text-[#888888] font-menu-item">{item.Price} ₴</span>
-                    <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.PromoPrice} ₴</span>
+                    <span className="text-l font-bold line-through text-[#888888]">{item.Price} ₴</span>
+                    <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'}`}>{item.PromoPrice} ₴</span>
                   </>
                 ) : (
-                  <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.Price} ₴</span>
+                  <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'}`}>{item.Price} ₴</span>
                 )}
                 {item.IsOutOfStock ? (
-                  <span className="text-lg text-red-500 font-menu-item">{t("menuItem.outOfStock")}</span>
+                  <span className="text-base text-red-500 font-[IgraSans]">{t("menuItem.outOfStock")}</span>
                 ) : (
                   <></>
                 )}
@@ -139,13 +139,13 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
             
             {/* Description */}
             {displayDescription && (
-              <p className="text-[0.925rem] leading-relaxed mb-3 line-clamp-2 font-menu-item" style={{ color: '#cccccc' }}>
+              <p className="text-[0.925rem] leading-relaxed mb-3 line-clamp-2 font-[IgraSans]" style={{ color: '#cccccc' }}>
                 {displayDescription}
               </p>
             )}
             
             {/* Bottom info */}
-            <div className="flex items-center flex-wrap gap-3 text-sm mt-auto" style={{ color: '#888888' }}>
+            <div className="flex items-center flex-wrap gap-3 text-sm mt-auto font-[IgraSans]" style={{ color: '#888888' }}>
               <div className="flex items-center space-x-1">
                 <Weight className="w-3 h-3" />
                 <span>{item.Amount}{weightUnit}</span>
@@ -162,7 +162,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                 {item.IsNew && (
                   <div className="flex items-center space-x-1">
                     <AlertCircle className="w-4 h-4 text-yellow-500"/>
-                    <span className="text-m font-medium text-yellow-500">
+                    <span className="text-base font-medium text-yellow-500">
                       {t('menuItem.badges.new')}
                     </span>
                   </div>
@@ -171,7 +171,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                 {item.IsPromo && (
                   <div className="flex items-center space-x-1">
                     <ThumbsUp className="w-4 h-4 text-yellow-500"/>
-                    <span className="text-m font-medium text-yellow-500">
+                    <span className="text-base font-medium text-yellow-500">
                       {t('menuItem.badges.recommended')}
                     </span>
                   </div>
@@ -182,7 +182,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
           
           {/* Right image area with 4:3 aspect ratio */}
           {item.ImageUrl && (
-            <div className={`absolute top-1/2 right-0 -translate-y-1/2 ${item.IsOutOfStock ? 'grayscale' : ''} w-40 md:w-48 md:group-hover:w-50 rounded-2xl overflow-hidden transition-all duration-300`}
+            <div className={`h-1/2 mt-10 sm:mt-4 ${item.IsOutOfStock ? 'grayscale' : ''} w-40 md:w-48 md:group-hover:scale-110 rounded-2xl overflow-hidden transition-all duration-300`}
                  style={{ aspectRatio: '4 / 3' }}>
               <img
                 src={item.ImageUrl}
@@ -238,20 +238,20 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               {/* Name and price */}
               <div className="mb-2">
                 <div className="flex items-center space-x-2 mb-2">
-                  <h3 className="text-2xl font-bold text-white leading-tight font-menu-item">{displayName}</h3>
+                  <h3 className="text-2xl font-bold text-white leading-tight font-[IgraSans]">{displayName}</h3>
                 </div>
                 
                 <div className="flex items-center space-x-2">
                   {item.PromoPrice ? (
                     <>
-                      <span className="text-l font-bold line-through text-[#888888] font-menu-item">{item.Price} ₴</span>
-                      <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.PromoPrice} ₴</span>
+                      <span className="text-l font-bold line-through text-[#888888]">{item.Price} ₴</span>
+                      <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'}`}>{item.PromoPrice} ₴</span>
                     </>
                   ) : (
-                    <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'} font-menu-item`}>{item.Price} ₴</span>
+                    <span className={`text-xl font-bold ${item.IsOutOfStock ? 'text-[#888888]' : 'text-yellow-400'}`}>{item.Price} ₴</span>
                   )}
                   {item.IsOutOfStock ? (
-                    <span className="text-lg text-red-500 font-menu-item">{t("menuItem.outOfStock")}</span>
+                    <span className="text-lg text-red-500 font-[IgraSans]">{t("menuItem.outOfStock")}</span>
                   ) : (
                     <></>
                   )}
@@ -260,13 +260,13 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
 
               {/* Description */}
               {displayDescription && (
-                <p className="leading-relaxed mb-4 font-menu-item" style={{ color: '#cccccc' }}>
+                <p className="leading-relaxed mb-4 font-[IgraSans]" style={{ color: '#cccccc' }}>
                   {displayDescription}
                 </p>
               )}
 
               {/* Details */}
-              <div className="flex items-center flex-wrap gap-4 text-sm mb-4" style={{ color: '#888888' }}>
+              <div className="flex items-center flex-wrap gap-4 text-sm mb-4 font-[IgraSans]" style={{ color: '#888888' }}>
                 <div className="flex items-center space-x-1">
                   <Weight className="w-4 h-4" />
                   <span>{item.Amount}{weightUnit}</span>
@@ -281,7 +281,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               </div>
 
               {/* Badges */}
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3 font-[IgraSans]">
                 {item.IsNew && (
                   <div className="flex items-center space-x-1">
                     <AlertCircle className="w-4 h-4 text-yellow-500"/>
