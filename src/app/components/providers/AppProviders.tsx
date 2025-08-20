@@ -1,20 +1,17 @@
 'use client';
 
-import { NextIntlClientProvider } from 'next-intl';
-import type { AbstractIntlMessages } from 'next-intl';
+import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 import { LanguageSync } from './LanguageSync';
-import { useLocale } from '@/hooks/useLocale';
-import { ReactNode } from 'react';
+import { useLanguageInit } from '@/hooks/useLanguageInit';
 
 interface AppProvidersProps {
-  children: ReactNode;
+  children: React.ReactNode;
   messages: AbstractIntlMessages;
-  locale: string; // Add locale prop
+  locale: string;
 }
 
 export function AppProviders({ children, messages, locale }: AppProvidersProps) {
-  // Initialize locale on app start
-  useLocale();
+  useLanguageInit();
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale} timeZone="Europe/Kiev">

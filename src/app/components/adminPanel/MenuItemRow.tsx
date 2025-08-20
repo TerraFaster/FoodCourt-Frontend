@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { MenuItem } from '@/types/MenuItem';
 import { MenuItemCard } from '../menu/MenuItemCard';
 import { CustomToggle } from '../ui/CustomToggle';
-import { getCurrentLocale } from '@/lib/locale/client';
+import { getCurrentLocale } from '@/utils/language';
 
 interface MenuItemRowProps {
   item: MenuItem;

@@ -1,19 +1,29 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { 
-  type Locale, 
-  LOCALE_LABELS, 
-  DEFAULT_LOCALE
-} from '@/lib/locale/config';
-import { getCurrentLocale, setLocaleCookie } from '@/lib/locale/client';
+
+// Map your internal language codes to next-intl locale codes
+export const languageMap = {
+  'English': 'en',
+  'Ukrainian': 'uk'
+} as const;
+
+export const localeMap = {
+  'en': 'English',
+  'uk': 'Ukrainian'
+} as const;
+
+export type Language = keyof typeof languageMap;
+export type Locale = keyof typeof localeMap;
 
 interface SettingsState {
-  locale: Locale;
+  // Existing settings
+  language: Language;
   isHydrated: boolean;
   
   // Actions
-  setLocale: (locale: Locale) => void;
-  getLocaleLabel: () => string;
+  setLanguage: (language: Language) => void;
+  setLanguageFromLocale: (locale: Locale) => void;
+  getCurrentLocale: () => Locale;
   setHydrated: () => void;
 }
 
@@ -21,18 +31,27 @@ export const useSettingsStore = create<SettingsState>()(
   persist(
     (set, get) => ({
       // Initial state
-      locale: DEFAULT_LOCALE,
+      language: 'English',
       isHydrated: false,
       
       // Actions      
-      setLocale: (locale: Locale) => {
-        set({ locale });
-        setLocaleCookie(locale);
+      setLanguage: (language: Language) => {
+        set({ language });
+        // Update the cookie for next-intl
+        const locale = languageMap[language];
+        document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000`; // 1 year
+        // Reload to apply language change
+        window.location.reload();
       },
 
-      getLocaleLabel: () => {
-        const { locale } = get();
-        return LOCALE_LABELS[locale];
+      setLanguageFromLocale: (locale: Locale) => {
+        const language = localeMap[locale];
+        set({ language });
+      },
+
+      getCurrentLocale: () => {
+        const { language } = get();
+        return languageMap[language];
       },
 
       setHydrated: () => {
@@ -42,12 +61,8 @@ export const useSettingsStore = create<SettingsState>()(
     {
       name: 'settings-storage',
       onRehydrateStorage: () => (state) => {
-        if (state) {
-          // Sync with current cookie locale on hydration
-          const currentLocale = getCurrentLocale();
-          state.locale = currentLocale;
-          state.setHydrated();
-        }
+        // Set hydrated to true when rehydration is complete
+        state?.setHydrated();
       },
     }
   )

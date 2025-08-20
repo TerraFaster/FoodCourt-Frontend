@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import localFont from 'next/font/local';
 import { AppProviders } from './components/providers/AppProviders';
-import { getServerLocale } from '@/lib/locale/server';
 import "./globals.css";
+import { getServerLocale } from "@/utils/languageServer";
 
 const IgraSans = localFont({
   src: [
@@ -18,10 +17,11 @@ const IgraSans = localFont({
   display: 'swap',
 });
 
+
 // Dynamic metadata based on locale
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
-  
+
   const metadata = {
     en: {
       title: "BeerHop - Food Court Menu | Delicious Food and Craft Beer",
@@ -104,12 +104,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const messages = await getMessages();
-  const locale = await getServerLocale();
 
   return (
-    <html lang={locale} className={IgraSans.variable}>
+    <html lang="uk" className={IgraSans.variable}>
       <body className="text-white font-sans">
-        <AppProviders messages={messages} locale={locale}>
+        <AppProviders messages={messages} locale="uk">
           <div className="min-h-screen">
             <main>{children}</main>
           </div>

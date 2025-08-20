@@ -1,23 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useLocale } from '@/hooks/useLocale';
-import { initializeLocaleIfNeeded } from '@/lib/locale/client';
+import { useEffect } from 'react';
+import { useLocale } from 'next-intl';
+import { useSettingsStore, localeMap } from '../../store/settingsStore';
 
-/**
- * Component to initialize and sync locale state
- */
 export function LanguageSync() {
-  const { locale, isHydrated } = useLocale();
-  const [isInitialized, setIsInitialized] = useState(false);
-  
+  const locale = useLocale() as 'en' | 'uk';
+  const { setLanguageFromLocale, getCurrentLocale } = useSettingsStore();
+
   useEffect(() => {
-    if (!isInitialized) {
-      // Ensure locale is initialized on first visit
-      initializeLocaleIfNeeded();
-      setIsInitialized(true);
+    // Sync the store with the current locale
+    const currentStoreLocale = getCurrentLocale();
+    if (currentStoreLocale !== locale) {
+      setLanguageFromLocale(locale);
     }
-  }, [isInitialized]);
-  
+  }, [locale, setLanguageFromLocale, getCurrentLocale]);
+
   return null;
 }

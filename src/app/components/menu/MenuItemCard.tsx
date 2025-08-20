@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useSettingsStore } from '../../store/settingsStore';
-import { getCurrentLocale } from '@/lib/locale/client';
 
 interface MenuItem {
   Id: number;
@@ -27,7 +26,7 @@ interface MenuItem {
 
 export function MenuItemCard({ item }: { item: MenuItem }) {
   const t = useTranslations();
-  const { isHydrated } = useSettingsStore();
+  const { getCurrentLocale, isHydrated } = useSettingsStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -114,7 +113,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
       >
         <div className="flex h-full">
           {/* Left content area */}
-          <div className={`flex-1 p-4 pr-2 flex flex-col justify-between transition-all duration-300 ${item.ImageUrl ? 'mr-28 md:mr-40 md:group-hover:mr-50' : ''}`}>
+          <div className={`flex-1 p-1 flex flex-col justify-between ${item.ImageUrl ? 'mr-40 md:mr-48' : ''}`}>
             {/* Top section with name and price */}
             <div className="mb-2">
               <div className="flex items-center space-x-2 mb-2">
@@ -181,13 +180,15 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
             </div>
           </div>
           
-          {/* Right image area */}
+          {/* Right image area with 4:3 aspect ratio */}
           {item.ImageUrl && (
-            <div className={`absolute top-0 right-0 ${item.IsOutOfStock ? 'grayscale' : ''} w-28 md:w-40 md:group-hover:w-50 transition-all duration-300 h-full rounded-r-2xl overflow-hidden`}>
+            <div className={`absolute top-1/2 right-0 -translate-y-1/2 ${item.IsOutOfStock ? 'grayscale' : ''} w-40 md:w-48 md:group-hover:w-50 rounded-2xl overflow-hidden transition-all duration-300`}
+                 style={{ aspectRatio: '4 / 3' }}>
               <img
                 src={item.ImageUrl}
                 alt={displayName}
                 className="w-full h-full object-cover"
+                style={{ aspectRatio: '4 / 3' }}
               />
             </div>
           )}
@@ -219,13 +220,15 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
               <X className="w-6 h-6 text-white" />
             </button>
 
-            {/* Image at the top */}
+            {/* Image at the top with 4:3 aspect ratio */}
             {item.ImageUrl && (
-              <div className={`w-full h-80 overflow-hidden ${item.IsOutOfStock ? 'grayscale' : ''}`}>
+              <div className={`w-full overflow-hidden ${item.IsOutOfStock ? 'grayscale' : ''}`}
+                   style={{ aspectRatio: '4 / 3' }}>
                 <img
                   src={item.ImageUrl}
                   alt={displayName}
                   className="w-full h-full object-cover"
+                  style={{ aspectRatio: '4 / 3' }}
                 />
               </div>
             )}

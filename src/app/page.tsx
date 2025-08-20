@@ -140,7 +140,7 @@ export default function RestaurantSite() {
       <Header></Header>
 
       {/* Main Content */}
-      <main className="flex-1 sm:w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 sm:pb-20 sm:rounded-3xl" style={{ backgroundColor: '#111111' }}>
+      <main className="flex-1 sm:w-3xl mx-auto px-2 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 sm:pb-20 sm:rounded-3xl" style={{ backgroundColor: '#111111' }}>
         <div className="mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-4 font-[IgraSans]">{t('menu.title')}</h2>
           <p className="text-sm sm:text-lg font-[IgraSans]" style={{ color: '#888888' }}>{t('menu.subtitle')}</p>
