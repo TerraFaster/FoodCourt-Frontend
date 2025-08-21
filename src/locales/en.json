@@ -99,11 +99,13 @@
       "updateItem": "Update Item",
       "addItem": "Add Item"
     },
-    "deleteConfirmation": "Are you sure you want to delete this item?",
     "addNewItemDescription": "Click to add a new item to your menu",
     "modal": {
       "editTitle": "Edit Menu Item",
-      "addTitle": "Add New Menu Item"
+      "addTitle": "Add New Menu Item",
+      "deleteTitle": "Delete Menu Item",
+      "deleteConfirmation": "Are you sure you want to delete this item?",
+      "deleteWarning": "This action cannot be undone."
     },
     "form": {
       "fields": {
@@ -112,6 +114,7 @@
         "descriptionEn": "Description (English)",
         "descriptionUk": "Description (Ukrainian)",
         "category": "Category",
+        "position": "Position",
         "amount": "Amount",
         "unit": "Unit",
         "price": "Price (₴)",
@@ -135,6 +138,7 @@
       },
       "preview": "Preview",
       "saving": "Saving...",
+      "deleting": "Deleting...",
       "imageUpload": {
         "dragAndDrop": "Click to select or drag & drop an image file or URL here",
         "supportedFormats": "Supports: JPG, PNG, GIF, WebP, SVG",

@@ -1,12 +1,13 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Header } from './components/layout/Header';
 import { MenuItemCard } from './components/menu/MenuItemCard';
 import { Footer } from './components/layout/Footer';
 import { MenuFooter } from './components/layout/MenuFooter';
 import { apiClient } from '../lib/apiClient';
+import { useSettingsStore } from '@/app/store/settingsStore';
 
 // Transform API response to match existing component structure
 interface TransformedMenuItem {
@@ -29,10 +30,10 @@ interface TransformedMenuItem {
 
 export default function RestaurantSite() {
   const t = useTranslations();
-  const locale = useLocale();
   const [menuItems, setMenuItems] = useState<TransformedMenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const locale = useSettingsStore((state) => state.getCurrentLocale());
 
   const fetchMenuItems = async () => {
     try {

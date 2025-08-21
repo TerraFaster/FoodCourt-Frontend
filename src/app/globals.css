@@ -12,6 +12,10 @@
   --font-menu-item: "Montserrat", "Inter", BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif
 }
 
+html, head, body {
+  background: #111111;
+}
+
 body {
   background-image: url('/bg2.png');
   background-size: contain;

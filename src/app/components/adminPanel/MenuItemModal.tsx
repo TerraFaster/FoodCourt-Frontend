@@ -8,6 +8,7 @@ import { MenuItemForm } from './MenuItemForm';
 interface MenuItemModalProps {
   isOpen: boolean;
   editingItem: MenuItem | null;
+  defaultPosition: number;
   onClose: () => void;
   onSave: (formData: MenuItem) => Promise<void>;
 }
@@ -15,6 +16,7 @@ interface MenuItemModalProps {
 export const MenuItemModal: React.FC<MenuItemModalProps> = ({
   isOpen,
   editingItem,
+  defaultPosition,
   onClose,
   onSave
 }) => {
@@ -37,7 +39,8 @@ export const MenuItemModal: React.FC<MenuItemModalProps> = ({
     IsPromo: false,
     IsOutOfStock: false,
     ImageUrl: '',
-    Category: 'food'
+    Category: 'food',
+    Position: 0
   });
 
   useEffect(() => {
@@ -59,12 +62,13 @@ export const MenuItemModal: React.FC<MenuItemModalProps> = ({
         IsPromo: false,
         IsOutOfStock: false,
         ImageUrl: '',
-        Category: 'food'
+        Category: 'food',
+        Position: defaultPosition
       });
     }
     setError('');
     setIsAnimating(false);
-  }, [editingItem]);
+  }, [editingItem, defaultPosition]);
 
   // Handle animation when modal opens
   useEffect(() => {

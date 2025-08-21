@@ -7,6 +7,7 @@ import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { MenuItemList } from '../components/adminPanel/MenuItemList';
 import { MenuItemModal } from '../components/adminPanel/MenuItemModal';
+import { DeleteConfirmationModal } from '../components/adminPanel/DeleteConfirmationModal';
 import { apiClient, ApiError } from '../../lib/apiClient';
 import { MenuItem } from '../../types/MenuItem';
 import { convertFromApiResponse, convertToApiRequest } from '@/utils/converters';
@@ -18,6 +19,8 @@ export default function AdminMenuPanel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [error, setError] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<MenuItem | null>(null);
 
   // Load menu items from API
   const loadMenuItems = async () => {
@@ -26,6 +29,8 @@ export default function AdminMenuPanel() {
       setError('');
       const apiItems = await apiClient.getAllMenuItems();
       const convertedItems = apiItems.map(convertFromApiResponse);
+      // Sort by position for consistent ordering
+      convertedItems.sort((a, b) => a.Position - b.Position);
       setMenuItems(convertedItems);
     } catch (err) {
       const apiError = err as ApiError;
@@ -58,6 +63,27 @@ export default function AdminMenuPanel() {
     }
   };
 
+  // Quick position update
+  const updatePosition = async (item: MenuItem, newPosition: number) => {
+    try {
+      const updatedItem = { ...item, Position: newPosition };
+      const apiRequest = convertToApiRequest(updatedItem);
+      await apiClient.updateMenuItem(item.Id, apiRequest);
+      
+      setMenuItems(prev => {
+        const updated = prev.map(menuItem => 
+          menuItem.Id === item.Id ? updatedItem : menuItem
+        );
+        // Re-sort by position
+        return updated.sort((a, b) => a.Position - b.Position);
+      });
+    } catch (err) {
+      const apiError = err as ApiError;
+      setError(apiError.message || 'Failed to update position');
+      console.error('Failed to update position:', apiError);
+    }
+  };
+
   const openAddModal = () => {
     setEditingItem(null);
     setIsModalOpen(true);
@@ -74,19 +100,24 @@ export default function AdminMenuPanel() {
     setError('');
   };
 
-  const handleDelete = async (itemId: number) => {
-    if (!window.confirm(t('admin.deleteConfirmation'))) {
-      return;
-    }
+  const handleDelete = (item: MenuItem) => {
+    setItemToDelete(item);
+    setIsDeleteModalOpen(true);
+  };
 
+  const confirmDelete = async (itemId: number) => {
     try {
       await apiClient.deleteMenuItem(itemId);
       setMenuItems(prev => prev.filter(item => item.Id !== itemId));
     } catch (err) {
       const apiError = err as ApiError;
-      setError(apiError.message || 'Failed to delete menu item');
-      console.error('Failed to delete menu item:', apiError);
+      throw new Error(apiError.message || 'Failed to delete menu item');
     }
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setItemToDelete(null);
   };
 
   const handleSaveItem = async (formData: MenuItem) => {
@@ -96,14 +127,22 @@ export default function AdminMenuPanel() {
       if (editingItem) {
         // Update existing item
         await apiClient.updateMenuItem(editingItem.Id, apiRequest);
-        setMenuItems(prev => prev.map(item => 
-          item.Id === editingItem.Id ? formData : item
-        ));
+        setMenuItems(prev => {
+          const updated = prev.map(item => 
+            item.Id === editingItem.Id ? formData : item
+          );
+          // Re-sort by position
+          return updated.sort((a, b) => a.Position - b.Position);
+        });
       } else {
         // Add new item
         const newItem = await apiClient.createMenuItem(apiRequest);
         const convertedItem = convertFromApiResponse(newItem);
-        setMenuItems(prev => [...prev, convertedItem]);
+        setMenuItems(prev => {
+          const updated = [...prev, convertedItem];
+          // Re-sort by position
+          return updated.sort((a, b) => a.Position - b.Position);
+        });
       }
       
       closeModal();
@@ -111,6 +150,11 @@ export default function AdminMenuPanel() {
       const apiError = err as ApiError;
       throw new Error(apiError.message || 'Failed to save menu item');
     }
+  };
+
+  // Get default position for new items
+  const getDefaultPosition = () => {
+    return menuItems.length + 1;
   };
 
   if (isLoading) {
@@ -130,7 +174,7 @@ export default function AdminMenuPanel() {
 
       {/* Error Message */}
       {error && (
-        <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 pt-6">
+        <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 w-full">
           <div className="mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
             <div className="flex items-center justify-between">
               <p className="text-red-400">{error}</p>
@@ -146,7 +190,7 @@ export default function AdminMenuPanel() {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 sm:w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 max-w-4xl sm:w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold text-white font-[IgraSans]">{t('admin.menuManagement')}</h1>
           <button
@@ -164,19 +208,29 @@ export default function AdminMenuPanel() {
           onEdit={openEditModal}
           onDelete={handleDelete}
           onToggleOutOfStock={toggleOutOfStock}
+          onUpdatePosition={updatePosition}
           onAddNew={openAddModal}
         />
       </main>
 
-      {/* Modal */}
+      {/* Edit/Add Modal */}
       {isModalOpen && (
         <MenuItemModal
           isOpen={isModalOpen}
           editingItem={editingItem}
+          defaultPosition={getDefaultPosition()}
           onClose={closeModal}
           onSave={handleSaveItem}
         />
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        menuItem={itemToDelete}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+      />
 
       <Footer />
     </div>

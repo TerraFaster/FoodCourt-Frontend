@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useLocale } from 'next-intl';
-import { useSettingsStore, localeMap } from '../../store/settingsStore';
+import { useSettingsStore } from '@/app/store/settingsStore';
 
 export function LanguageSync() {
   const locale = useLocale() as 'en' | 'uk';

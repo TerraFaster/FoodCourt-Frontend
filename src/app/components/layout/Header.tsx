@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from 'next-intl';
-import { useSettingsStore } from '../../store/settingsStore';
+import { useSettingsStore } from '@/app/store/settingsStore';
 import { useEffect, useState } from "react";
 import { ChevronDown, Globe } from "lucide-react";
 
@@ -26,7 +26,7 @@ const LanguageDropdown = () => {
   };
 
   const currentLanguage = languages.find(lang => lang.code === language);
-  const displayCode = isHydrated ? (currentLanguage?.shortCode || 'en') : 'en';
+  const displayCode = isHydrated ? (currentLanguage?.shortCode || 'uk') : 'uk';
 
   return (
     <div className="relative">

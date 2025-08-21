@@ -14,6 +14,7 @@ export interface MenuItem {
   IsOutOfStock: boolean;
   ImageUrl?: string;
   Category: string;
+  Position: number;
 }
 
 export const categories = ['food', 'drinks', 'desserts'] as const;

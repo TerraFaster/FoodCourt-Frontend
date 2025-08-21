@@ -5,15 +5,43 @@ import { languageMap, localeMap, type Language, type Locale } from '../app/store
  */
 export function detectBrowserLanguage(): Language {
   if (typeof window === 'undefined') return 'English';
-  
+
   const browserLang = navigator.language.toLowerCase();
-  
-  // Map browser language codes to our supported languages
-  if (browserLang.startsWith('uk') || browserLang.startsWith('ua')) {
+
+  // Список всех славянских языков (ISO коды)
+  const slavicLangs = [
+    'uk', // Ukrainian
+    'ru', // Russian
+    'be', // Belarusian
+    'pl', // Polish
+    'cs', // Czech
+    'sk', // Slovak
+    'sl', // Slovenian
+    'hr', // Croatian
+    'sr', // Serbian
+    'bs', // Bosnian
+    'bg', // Bulgarian
+    'mk'  // Macedonian
+  ];
+
+  // Проверяем, начинается ли язык с одного из славянских кодов
+  if (slavicLangs.some(code => browserLang.startsWith(code))) {
     return 'Ukrainian';
   }
-  
-  return 'English'; // Default fallback
+
+  return 'English'; // Все остальные считаем английским
+}
+
+
+export function languageToLocale(language: Language): Locale {
+  switch (language) {
+    case 'English':
+      return 'en';
+    case 'Ukrainian':
+      return 'uk';
+    default:
+      return 'en';
+  }
 }
 
 /**

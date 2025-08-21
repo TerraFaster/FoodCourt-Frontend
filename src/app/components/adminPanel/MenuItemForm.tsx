@@ -79,16 +79,34 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({
         </div>
       </div>
 
-      {/* Category */}
-      <div>
-        <label className="block text-sm font-medium mb-2" style={{ color: '#cccccc' }}>
-          {t('admin.form.fields.category')} *
-        </label>
-        <Dropdown
-          options={categoryOptions}
-          value={formData.Category}
-          onChange={(value) => onInputChange('Category', value)}
-        />
+      {/* Category and Position */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2" style={{ color: '#cccccc' }}>
+            {t('admin.form.fields.category')} *
+          </label>
+          <Dropdown
+            options={categoryOptions}
+            value={formData.Category}
+            onChange={(value) => onInputChange('Category', value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2" style={{ color: '#cccccc' }}>
+            {t('admin.form.fields.position')} *
+          </label>
+          <input
+            type="number"
+            value={formData.Position}
+            onChange={(e) => handleNumberChange(e.target.value, 'Position')}
+            disabled={isSaving}
+            className="w-full px-3 py-2 border rounded-lg text-white focus:outline-none focus:border-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ backgroundColor: '#111111', borderColor: '#333333' }}
+            min="1"
+            placeholder="Position in menu"
+          />
+        </div>
       </div>
 
       {/* Description Fields - English and Ukrainian */}

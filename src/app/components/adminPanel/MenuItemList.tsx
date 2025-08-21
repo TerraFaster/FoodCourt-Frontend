@@ -7,8 +7,9 @@ import { AddNewItemButton } from './AddNewItemButton';
 interface MenuItemListProps {
   menuItems: MenuItem[];
   onEdit: (item: MenuItem) => void;
-  onDelete: (itemId: number) => void;
+  onDelete: (item: MenuItem) => void;
   onToggleOutOfStock: (item: MenuItem) => void;
+  onUpdatePosition: (item: MenuItem, newPosition: number) => void;
   onAddNew: () => void;
 }
 
@@ -17,6 +18,7 @@ export const MenuItemList: React.FC<MenuItemListProps> = ({
   onEdit,
   onDelete,
   onToggleOutOfStock,
+  onUpdatePosition,
   onAddNew
 }) => {
   const t = useTranslations();
@@ -31,6 +33,7 @@ export const MenuItemList: React.FC<MenuItemListProps> = ({
               onEdit={onEdit}
               onDelete={onDelete}
               onToggleOutOfStock={onToggleOutOfStock}
+              onUpdatePosition={onUpdatePosition}
             />
             
             {index < menuItems.length - 1 && (

@@ -30,6 +30,7 @@ export interface MenuItemResponse {
   isOutOfStock: boolean;
   imageUrl?: string;
   category: string;
+  position: number;
 }
 
 export interface MenuItemRequest {
@@ -48,6 +49,7 @@ export interface MenuItemRequest {
   isOutOfStock: boolean;
   imageUrl?: string;
   category: string;
+  position: number;
 }
 
 export interface FlagsUpdateRequest {
@@ -74,6 +76,7 @@ export interface MenuItemPublicResponse {
   isOutOfStock: boolean;
   imageUrl?: string;
   category: string;
+  position: number;
 }
 
 export interface ApiError {

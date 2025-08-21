@@ -17,7 +17,8 @@ export const convertFromApiResponse = (apiItem: MenuItemResponse): MenuItem => (
   IsPromo: apiItem.isPromo,
   IsOutOfStock: apiItem.isOutOfStock || false,
   ImageUrl: apiItem.imageUrl,
-  Category: apiItem.category
+  Category: apiItem.category,
+  Position: apiItem.position
 });
 
 // Convert local format to API request
@@ -36,5 +37,6 @@ export const convertToApiRequest = (item: MenuItem): MenuItemRequest => ({
   isPromo: item.IsPromo,
   isOutOfStock: item.IsOutOfStock,
   imageUrl: item.ImageUrl,
-  category: item.Category
+  category: item.Category,
+  position: item.Position
 });
