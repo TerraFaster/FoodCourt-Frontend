@@ -26,6 +26,7 @@ interface TransformedMenuItem {
   IsOutOfStock: boolean;
   ImageUrl?: string;
   Category: string;
+  Position: number;
 }
 
 export default function RestaurantSite() {
@@ -61,10 +62,14 @@ export default function RestaurantSite() {
         IsPromo: item.isPromo,
         IsOutOfStock: item.isOutOfStock,
         ImageUrl: item.imageUrl,
-        Category: item.category
+        Category: item.category,
+        Position: item.position
       }));
 
-      setMenuItems(transformedItems);
+      // Sort menu items by position (ascending order)
+      const sortedItems = transformedItems.sort((a, b) => a.Position - b.Position);
+
+      setMenuItems(sortedItems);
     } catch (err) {
       console.error('Failed to fetch menu items:', err);
       setError(err instanceof Error ? err.message : t('menu.errors.load'));
